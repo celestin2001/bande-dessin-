@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+from decouple import config
+SECRET_KEY = config('SECRET_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,8 +80,12 @@ WSGI_APPLICATION = 'BD_Gestion.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'bd_sql'),
+        'USER': os.getenv('DB_USER', 'bd_sql_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'YzCaqBOpbeVa2HAsI75LTcakEJ6036dR'),
+        'HOST': os.getenv('DB_HOST', 'dpg-cvbs4c52ng1s73ehaj20-a.oregon-postgres.render.com'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
